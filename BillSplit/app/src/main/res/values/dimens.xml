@@ -1,0 +1,7 @@
+<resources>
+    <dimen name="padding">12dp</dimen>
+    <dimen name="stroke">1dp</dimen>
+    <dimen name="stroke_icon">2dp</dimen>
+    <dimen name="text_size_primary">14sp</dimen>
+    <dimen name="text_size_secondary">12sp</dimen>
+</resources>
