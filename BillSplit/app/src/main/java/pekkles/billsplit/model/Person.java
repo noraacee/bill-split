@@ -1,29 +1,38 @@
 package pekkles.billsplit.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Person {
     private static final int TIP_DEFAULT = 10;
 
     private double total;
+
     private int tip;
 
     private String name;
+
+    private List<Item> items;
 
     public Person(String name) {
         this(name, TIP_DEFAULT);
     }
 
     public Person(String name, int tip) {
-        if (name == null || name.length() == 0 || tip < 0)
-            throw new IllegalArgumentException();
-
         this.name = name;
         this.tip = tip;
 
         total = 0;
+        items = new ArrayList<>();
     }
 
     public void addItem(Item i) {
+        items.add(i);
+        total += i.calculateCost(this, tip);
+    }
 
+    public List<Item> getItems() {
+        return items;
     }
 
     public String getName() {

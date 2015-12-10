@@ -1,6 +1,7 @@
 package pekkles.billsplit.model;
 
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Item {
     private static final int TAX_ALCOHOL = 15;
@@ -10,32 +11,47 @@ public class Item {
 
     private int price;
     private int pricePer;
+    private int priceTotal;
+    private int quantity;
+    private int quantityTotal;
     private int tax;
     private int taxPer;
     private int total;
 
     private String name;
 
-    private List<Person> people;
+    private Map<Person, Integer> people;
 
-    public Item(String name, double price, boolean alcohol, List<Person> people) {
-        if (name == null || name.length() == 0 || price < 0 || people == null || people.size() == 0)
-            throw new IllegalArgumentException();
-
+    public Item(String name, double price, int quantity, boolean alcohol) {
         this.name = name;
         this.price = (int) (price * 100);
+        this.quantity = quantity;
         this.alcohol = alcohol;
-        this.people = people;
 
-        calculateItem();
-        updatePeople();
+        quantityTotal = 0;
+        people = new HashMap<>();
+    }
+
+    public void addPerson(Person p, int quantity) {
+        people.put(p, quantity);
+        quantityTotal += quantity;
+    }
+
+    public double calculateCost(Person p, int tip) {
+        if (!people.containsKey(p))
+            return 0;
+
+        int quantity = people.get(p);
+        int cost = pricePer * quantity  + taxPer * quantity + pricePer * quantity * tip / 100;
+
+        return (double) cost / 100;
     }
 
     public String getName() {
         return name;
     }
 
-    public List<Person> getPeople() {
+    public Map<Person, Integer> getPeople() {
         return people;
     }
 
@@ -43,16 +59,16 @@ public class Item {
         return (double) price / 100;
     }
 
-    public double getPricePer() {
-        return (double) pricePer / 100;
+    public double getPriceTotal() {
+        return (double) priceTotal / 100;
+    }
+
+    public int getQuantity() {
+        return quantity;
     }
 
     public double getTax() {
         return (double) tax / 100;
-    }
-
-    public double getTaxPer() {
-        return (double) taxPer / 100;
     }
 
     public int getTaxPercent() {
@@ -66,24 +82,26 @@ public class Item {
         return (double) total / 100;
     }
 
-    public double calculateCost(int tip) {
-        int cost = pricePer + taxPer + pricePer * tip / 100;
-        return (double) cost / 100;
+    public void init() {
+        calculateItem();
+        updatePeople();
     }
 
     private void calculateItem() {
+        priceTotal = price * quantity;
+
         if (alcohol)
             tax = price * TAX_ALCOHOL / 100;
         else
             tax = price * TAX / 100;
 
         total = price + tax;
-        pricePer = price / people.size();
-        taxPer = tax / people.size();
+        pricePer = price / quantityTotal;
+        taxPer = tax / quantityTotal;
     }
 
     private void updatePeople() {
-        for (Person p : people)
+        for (Person p : people.keySet())
             p.addItem(this);
     }
 

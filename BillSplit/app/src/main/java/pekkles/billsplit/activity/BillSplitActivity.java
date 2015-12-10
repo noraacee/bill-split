@@ -1,7 +1,7 @@
 package pekkles.billsplit.activity;
 
-import android.app.Activity;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -15,7 +15,7 @@ import java.util.List;
 import pekkles.billsplit.R;
 import pekkles.billsplit.model.Person;
 
-public class SetupActivity extends Activity {
+public class BillSplitActivity extends FragmentActivity {
     private EditText nameView;
     private EditText tipView;
     private PeopleAdapter peopleAdapter;
@@ -23,7 +23,7 @@ public class SetupActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_setup);
+        setContentView(R.layout.activity_bill_split);
 
         peopleAdapter = new PeopleAdapter();
         ListView peopleView = (ListView) findViewById(R.id.people);
