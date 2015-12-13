@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Bill Split</string>
+    <string name="content_description_add">ADD</string>
+    <string name="hint_name">NAME</string>
+    <string name="hint_tip">TIP (%)</string>
+    <string name="text_okay">OKAY</string>
 </resources>

@@ -3,8 +3,15 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <ViewPager
+    <android.support.v4.view.ViewPager
+        android:id="@+id/view"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"/>
+    <ImageView
+        android:id="@+id/add"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/content_description_add"
+        android:src="@drawable/ic_add_white_24dp"/>
 </LinearLayout>
