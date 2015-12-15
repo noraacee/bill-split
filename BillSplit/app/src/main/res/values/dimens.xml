@@ -1,7 +1,8 @@
 <resources>
-    <dimen name="padding">12dp</dimen>
-    <dimen name="stroke">1dp</dimen>
-    <dimen name="stroke_icon">2dp</dimen>
+    <dimen name="padding_primary">24dp</dimen>
+    <dimen name="padding_secondary">16dp</dimen>
+    <dimen name="padding_tertiary">8dp</dimen>
+    <dimen name="text_size_main">20sp</dimen>
     <dimen name="text_size_primary">14sp</dimen>
     <dimen name="text_size_secondary">12sp</dimen>
 </resources>

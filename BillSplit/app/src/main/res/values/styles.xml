@@ -1,6 +1,43 @@
 <resources>
 
-    <style name="AppTheme" parent="Theme.AppCompat.Light">
+    <style name="AppTheme" parent="Theme.AppCompat">
+        <item name="android:background">@color/white_100</item>
     </style>
 
+    <style name="Button" parent="Text_Primary_White">
+        <item name="android:background">@color/background</item>
+        <item name="android:gravity">center</item>
+        <item name="android:padding">@dimen/padding_secondary</item>
+    </style>
+
+    <style name="EditText" parent="Text_Primary">
+        <item name="android:background">@null</item>
+        <item name="android:minEms">20</item>
+        <item name="android:paddingBottom">@dimen/padding_secondary</item>
+        <item name="android:paddingLeft">@dimen/padding_primary</item>
+        <item name="android:paddingRight">@dimen/padding_primary</item>
+        <item name="android:paddingTop">@dimen/padding_secondary</item>
+        <item name="android:textColorHint">@color/info</item>
+    </style>
+
+    <style name="Text_Main">
+        <item name="android:textColor">@color/secondary</item>
+        <item name="android:textSize">@dimen/text_size_main</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Text_Primary">
+        <item name="android:textColor">@color/primary</item>
+        <item name="android:textSize">@dimen/text_size_primary</item>
+    </style>
+
+    <style name="Text_Primary_White">
+        <item name="android:textColor">@color/primary_white</item>
+        <item name="android:textSize">@dimen/text_size_primary</item>
+    </style>
+
+    <style name="Text_Secondary">
+        <item name="android:textColor">@color/secondary</item>
+        <item name="android:textSize">@dimen/text_size_secondary</item>
+    </style>
 </resources>

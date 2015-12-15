@@ -1,10 +1,7 @@
-package pekkles.billsplit.util;
+package pekkles.billsplit.utility;
 
 import android.widget.TextView;
 
-/**
- * Created by Aaron Chan on 2015-12-13.
- */
 public class SystemMessageManager {
     private TextView systemMessage;
 
@@ -14,5 +11,9 @@ public class SystemMessageManager {
 
     public void displayError(String error) {
         systemMessage.setText(error);
+    }
+
+    public void displayWarning(String warning) {
+        systemMessage.setText(warning);
     }
 }

@@ -1,25 +1,31 @@
 package pekkles.billsplit.fragment;
 
-import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import pekkles.billsplit.R;
+import pekkles.billsplit.model.Item;
 
-public class ViewItemsFragment extends Fragment {
-
+public class ViewItemsFragment extends ViewModelsFragment<Item> {
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected int getLayoutId() {
+        return R.layout.fragment_view_items;
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_items, container, false);
-
-        return rootView;
+    protected int getListViewId() {
+        return R.id.items;
     }
 
+    @Override
+    protected ModelsAdapter initAdapter() {
+        return new ItemsAdapter();
+    }
+
+    private class ItemsAdapter extends ModelsAdapter {
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            return null;
+        }
+    }
 }

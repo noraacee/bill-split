@@ -9,13 +9,14 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 
 import pekkles.billsplit.R;
+import pekkles.billsplit.dialog.NewModelDialog;
 import pekkles.billsplit.dialog.NewPersonDialog;
 import pekkles.billsplit.fragment.ViewItemsFragment;
 import pekkles.billsplit.fragment.ViewPeopleFragment;
-import pekkles.billsplit.interf.OnAddListener;
+import pekkles.billsplit.model.Item;
 import pekkles.billsplit.model.Person;
 
-public class BillSplitActivity extends FragmentActivity {
+public class BillSplitActivity extends FragmentActivity implements NewModelDialog.OnAddListener<Object> {
     private static final int COUNT_PAGES = 2;
     private static final int POSITION_ITEMS = 1;
     private static final int POSITION_PEOPLE = 0;
@@ -47,6 +48,7 @@ public class BillSplitActivity extends FragmentActivity {
                         showNewPersonDialog();
                         break;
                     case POSITION_ITEMS:
+                        showNewItemDialog();
                         break;
                     default:
                         showNewPersonDialog();
@@ -58,14 +60,20 @@ public class BillSplitActivity extends FragmentActivity {
 
     }
 
+    @Override
+    public void onAdd(Object o) {
+        if (o instanceof Person)
+            viewPeopleFragment.add((Person) o);
+        else if (o instanceof Item)
+            viewItemsFragment.add((Item) o);
+    }
+
+    private void showNewItemDialog() {
+
+    }
+
     private void showNewPersonDialog() {
         NewPersonDialog dialog = new NewPersonDialog();
-        dialog.setOnAddListener(new OnAddListener<Person>() {
-            @Override
-            public void onAdd(Person person) {
-                viewPeopleFragment.add(person);
-            }
-        });
         dialog.show(getSupportFragmentManager(), TAG_PERSON);
     }
 
