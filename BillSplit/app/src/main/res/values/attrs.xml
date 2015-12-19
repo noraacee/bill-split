@@ -1,0 +1,20 @@
+<resources>
+    <declare-styleable name="Pekkles">
+        <attr name="clickable" format="boolean"/>
+        <attr name="color_background" format="color"/>
+        <attr name="color_info" format="color"/>
+        <attr name="color_primary" format="color"/>
+        <attr name="color_secondary" format="color"/>
+        <attr name="color_tertiary" format="color"/>
+        <attr name="min_ems" format="integer"/>
+        <attr name="padding" format="dimension"/>
+        <attr name="padding_bottom" format="dimension"/>
+        <attr name="padding_left" format="dimension"/>
+        <attr name="padding_right" format="dimension"/>
+        <attr name="padding_top" format="dimension"/>
+        <attr name="stroke" format="dimension"/>
+        <attr name="text_size_primary" format="dimension"/>
+        <attr name="text_size_secondary" format="dimension"/>
+        <attr name="text_size_tertiary" format="dimension"/>
+    </declare-styleable>
+</resources>

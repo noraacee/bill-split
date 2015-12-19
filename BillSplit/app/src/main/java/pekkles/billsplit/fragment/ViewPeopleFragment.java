@@ -2,11 +2,10 @@ package pekkles.billsplit.fragment;
 
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import pekkles.billsplit.R;
 import pekkles.billsplit.model.Person;
-import pekkles.billsplit.widget.SmallCapsTextView;
+import pekkles.billsplit.widget.CustomTextView;
 
 public class ViewPeopleFragment extends ViewModelsFragment<Person> {
     @Override
@@ -31,7 +30,7 @@ public class ViewPeopleFragment extends ViewModelsFragment<Person> {
                 convertView = getActivity().getLayoutInflater().inflate(R.layout.list_person, parent, false);
 
                 ViewHolder holder = new ViewHolder();
-                holder.nameView = (SmallCapsTextView) convertView.findViewById(R.id.name);
+                holder.nameView = (CustomTextView) convertView.findViewById(R.id.name);
 
                 convertView.setTag(holder);
             }
@@ -39,13 +38,13 @@ public class ViewPeopleFragment extends ViewModelsFragment<Person> {
             ViewHolder holder = (ViewHolder) convertView.getTag();
             Person person = getItem(position);
 
-            holder.nameView.setTextSmallCaps(person.getName(), true);
+            holder.nameView.setText(person.getName().toUpperCase());
 
             return convertView;
         }
 
         private class ViewHolder {
-            public SmallCapsTextView nameView;
+            public CustomTextView nameView;
         }
     }
 }

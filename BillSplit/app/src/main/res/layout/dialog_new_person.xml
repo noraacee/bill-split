@@ -1,32 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:pekkles="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <TextView
+    <pekkles.billsplit.widget.CustomTextView
         android:id="@+id/system_message"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="gone"/>
-    <EditText
+        android:visibility="gone"
+        pekkles:color_primary="@color/primary_white"/>
+    <pekkles.billsplit.widget.CustomEditText
         android:id="@+id/name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:hint="@string/hint_name"
-        android:inputType="textCapWords"
-        style="@style/EditText"/>
-    <EditText
+        android:inputType="textCapWords"/>
+    <pekkles.billsplit.widget.CustomEditText
         android:id="@+id/tip"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:hint="@string/hint_tip"
-        android:inputType="number"
-        style="@style/EditText"/>
-    <TextView
+        android:inputType="number"/>
+    <pekkles.billsplit.widget.CustomTextView
         android:id="@+id/add"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/text_okay"
-        style="@style/Button"/>
+        pekkles:clickable="true"/>
 </LinearLayout>

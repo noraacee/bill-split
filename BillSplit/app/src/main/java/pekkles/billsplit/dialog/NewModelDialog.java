@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import pekkles.billsplit.R;
 import pekkles.billsplit.utility.SystemMessageManager;
+import pekkles.billsplit.widget.CustomTextView;
 
 public abstract class NewModelDialog<E> extends DialogFragment {
     public interface OnAddListener<E>{
@@ -37,7 +38,7 @@ public abstract class NewModelDialog<E> extends DialogFragment {
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(getLayoutId());
 
-        systemMessageManager = new SystemMessageManager((TextView) dialog.findViewById(R.id.system_message));
+        systemMessageManager = new SystemMessageManager(getActivity(), (CustomTextView) dialog.findViewById(R.id.system_message));
 
         dialog.findViewById(R.id.add).setOnClickListener(new View.OnClickListener() {
             @Override

@@ -10,16 +10,6 @@
         <item name="android:padding">@dimen/padding_secondary</item>
     </style>
 
-    <style name="EditText" parent="Text_Primary">
-        <item name="android:background">@null</item>
-        <item name="android:minEms">20</item>
-        <item name="android:paddingBottom">@dimen/padding_secondary</item>
-        <item name="android:paddingLeft">@dimen/padding_primary</item>
-        <item name="android:paddingRight">@dimen/padding_primary</item>
-        <item name="android:paddingTop">@dimen/padding_secondary</item>
-        <item name="android:textColorHint">@color/info</item>
-    </style>
-
     <style name="Text_Main">
         <item name="android:textColor">@color/secondary</item>
         <item name="android:textSize">@dimen/text_size_main</item>

@@ -2,8 +2,8 @@
     <string name="app_name">Bill Split</string>
     <string name="content_description_add">add</string>
     <string name="error_missing_name">Name cannot be left empty</string>
-    <string name="hint_name">N<small>AME</small></string>
-    <string name="hint_tip">T<small>IP</small> (%)</string>
+    <string name="hint_name">NAME</string>
+    <string name="hint_tip">TIP (%)</string>
     <string name="string_tip">tip: %d%%</string>
     <string name="text_okay">OKAY</string>
     <string name="warning_tip">Tip is greater than %d%%</string>
