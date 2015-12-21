@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:pekkles="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+    <pekkles.billsplit.widget.CustomTextView
+        android:id="@+id/name"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        pekkles:color_border="@color/background" />
+    <pekkles.billsplit.widget.CustomEditText
+        android:id="@+id/quantity"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:inputType="number"
+        android:selectAllOnFocus="true"
+        pekkles:min_ems="0"/>
+</LinearLayout>

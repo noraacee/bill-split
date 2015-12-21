@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Person {
-    private static final int TIP_DEFAULT = 10;
+    public static final int DEFAULT_TIP = 10;
+    public static final int THRESHOLD_TIP = 30;
 
     private double total;
 
@@ -13,10 +14,6 @@ public class Person {
     private String name;
 
     private List<Item> items;
-
-    public Person(String name) {
-        this(name, TIP_DEFAULT);
-    }
 
     public Person(String name, int tip) {
         this.name = name;

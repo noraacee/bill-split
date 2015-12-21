@@ -7,27 +7,22 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.view.View;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.TextView;
 
 import pekkles.billsplit.R;
+import pekkles.billsplit.activity.BillSplitActivity;
 import pekkles.billsplit.utility.SystemMessageManager;
-import pekkles.billsplit.widget.CustomTextView;
 
 public abstract class NewModelDialog<E> extends DialogFragment {
-    public interface OnAddListener<E>{
-        void onAdd(E e);
-    }
-
-    private OnAddListener<E> onAddListener;
-
+    protected BillSplitActivity activity;
     protected SystemMessageManager systemMessageManager;
 
     @Override
-    @SuppressWarnings("unchecked")
     public void onAttach(Activity activity) {
         super.onAttach(activity);
 
-        onAddListener = (OnAddListener<E>) activity;
+       this.activity = (BillSplitActivity) activity;
     }
 
     @NonNull
@@ -38,7 +33,15 @@ public abstract class NewModelDialog<E> extends DialogFragment {
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(getLayoutId());
 
-        systemMessageManager = new SystemMessageManager(getActivity(), (CustomTextView) dialog.findViewById(R.id.system_message));
+        systemMessageManager = new SystemMessageManager(getActivity(), (TextView) dialog.findViewById(R.id.system_message));
+
+        dialog.findViewById(R.id.name).setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus)
+                    getDialog().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+            }
+        });
 
         dialog.findViewById(R.id.add).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,6 +65,6 @@ public abstract class NewModelDialog<E> extends DialogFragment {
     protected abstract boolean validate();
 
     protected void onAdd(E e) {
-        onAddListener.onAdd(e);
+        activity.add(e);
     }
 }

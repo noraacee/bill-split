@@ -4,37 +4,38 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Item {
-    private static final int TAX_ALCOHOL = 15;
-    private static final int TAX = 5;
-
-    private boolean alcohol;
+    public static final int DEFAULT_TAX = 5;
+    public static final int THRESHOLD_TAX = 20;
 
     private int price;
     private int pricePer;
     private int priceTotal;
     private int quantity;
-    private int quantityTotal;
     private int tax;
     private int taxPer;
+    private int taxPercentage;
     private int total;
 
     private String name;
 
     private Map<Person, Integer> people;
 
-    public Item(String name, double price, int quantity, boolean alcohol) {
+    public Item(String name, double price, int taxPercentage) {
         this.name = name;
         this.price = (int) (price * 100);
-        this.quantity = quantity;
-        this.alcohol = alcohol;
+        this.taxPercentage = taxPercentage;
 
-        quantityTotal = 0;
+        quantity = 0;
         people = new HashMap<>();
     }
 
-    public void addPerson(Person p, int quantity) {
-        people.put(p, quantity);
-        quantityTotal += quantity;
+    public void addPeople(Map<Person, Integer> people) {
+        this.people = people;
+
+        for (Integer i : people.values()) {
+            if (i > quantity)
+                quantity = i;
+        }
     }
 
     public double calculateCost(Person p, int tip) {
@@ -71,11 +72,8 @@ public class Item {
         return (double) tax / 100;
     }
 
-    public int getTaxPercent() {
-        if (alcohol)
-            return TAX_ALCOHOL;
-        else
-            return TAX;
+    public int getTaxPercentage() {
+        return taxPercentage;
     }
 
     public double getTotal() {
@@ -89,15 +87,11 @@ public class Item {
 
     private void calculateItem() {
         priceTotal = price * quantity;
-
-        if (alcohol)
-            tax = price * TAX_ALCOHOL / 100;
-        else
-            tax = price * TAX / 100;
+        tax = price * taxPercentage / 100;
 
         total = price + tax;
-        pricePer = price / quantityTotal;
-        taxPer = tax / quantityTotal;
+        pricePer = price / quantity;
+        taxPer = tax / quantity;
     }
 
     private void updatePeople() {

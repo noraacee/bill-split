@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:pekkles="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="match_parent">
     <pekkles.billsplit.widget.CustomTextView
         android:id="@+id/system_message"
@@ -18,15 +18,29 @@
         android:hint="@string/hint_name"
         android:inputType="textCapWords"/>
     <pekkles.billsplit.widget.CustomEditText
-        android:id="@+id/tip"
+        android:id="@+id/price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="@string/hint_tip"
-        android:inputType="number"/>
+        android:hint="@string/hint_price"
+        android:inputType="numberDecimal"/>
+    <pekkles.billsplit.widget.CustomEditText
+        android:id="@+id/tax"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:imeOptions="actionNext"
+        android:inputType="number"
+        android:nextFocusDown="@+id/quantity"
+        android:nextFocusForward="@+id/quantity"/>
+    <ListView
+        android:id="@+id/quantities"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
     <pekkles.billsplit.widget.CustomTextView
         android:id="@+id/add"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/text_okay"
-        pekkles:clickable="true"/>
+        pekkles:border_top="true"
+        pekkles:mode="button"/>
 </LinearLayout>

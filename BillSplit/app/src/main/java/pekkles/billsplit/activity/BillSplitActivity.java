@@ -7,24 +7,33 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
+import android.widget.TextView;
+
+import java.util.List;
 
 import pekkles.billsplit.R;
+import pekkles.billsplit.dialog.NewItemDialog;
 import pekkles.billsplit.dialog.NewModelDialog;
 import pekkles.billsplit.dialog.NewPersonDialog;
 import pekkles.billsplit.fragment.ViewItemsFragment;
 import pekkles.billsplit.fragment.ViewPeopleFragment;
 import pekkles.billsplit.model.Item;
 import pekkles.billsplit.model.Person;
+import pekkles.billsplit.utility.SystemMessageManager;
 
-public class BillSplitActivity extends FragmentActivity implements NewModelDialog.OnAddListener<Object> {
+public class BillSplitActivity extends FragmentActivity {
+    private static final int ERROR_PEOPLE = R.string.error_people;
+
     private static final int COUNT_PAGES = 2;
     private static final int POSITION_ITEMS = 1;
     private static final int POSITION_PEOPLE = 0;
 
+    private static final String TAG_ITEM = "item";
     private static final String TAG_PERSON = "person";
 
-    private ViewPager viewPager;
+    private SystemMessageManager systemMessageManager;
 
+    private ViewPager viewPager;
     private ViewItemsFragment viewItemsFragment;
     private ViewPeopleFragment viewPeopleFragment;
 
@@ -32,6 +41,8 @@ public class BillSplitActivity extends FragmentActivity implements NewModelDialo
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bill_split);
+
+        systemMessageManager = new SystemMessageManager(this, (TextView) findViewById(R.id.system_message));
 
         viewItemsFragment = new ViewItemsFragment();
         viewPeopleFragment = new ViewPeopleFragment();
@@ -48,7 +59,11 @@ public class BillSplitActivity extends FragmentActivity implements NewModelDialo
                         showNewPersonDialog();
                         break;
                     case POSITION_ITEMS:
-                        showNewItemDialog();
+                        if (getPeople().isEmpty())
+                            systemMessageManager.displayError(getResources().getString(ERROR_PEOPLE));
+                        else
+                            showNewItemDialog();
+
                         break;
                     default:
                         showNewPersonDialog();
@@ -60,16 +75,20 @@ public class BillSplitActivity extends FragmentActivity implements NewModelDialo
 
     }
 
-    @Override
-    public void onAdd(Object o) {
+    public void add(Object o) {
         if (o instanceof Person)
             viewPeopleFragment.add((Person) o);
         else if (o instanceof Item)
             viewItemsFragment.add((Item) o);
     }
 
-    private void showNewItemDialog() {
+    public List<Person> getPeople() {
+        return viewPeopleFragment.getList();
+    }
 
+    private void showNewItemDialog() {
+        NewItemDialog dialog = new NewItemDialog();
+        dialog.show(getSupportFragmentManager(), TAG_ITEM);
     }
 
     private void showNewPersonDialog() {

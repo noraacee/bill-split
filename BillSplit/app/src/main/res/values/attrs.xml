@@ -1,17 +1,29 @@
 <resources>
     <declare-styleable name="Pekkles">
-        <attr name="clickable" format="boolean"/>
+        <attr name="border" format="boolean"/>
+        <attr name="border_bottom" format="boolean"/>
+        <attr name="border_single_color" format="boolean"/>
+        <attr name="border_left" format="boolean"/>
+        <attr name="border_right" format="boolean"/>
+        <attr name="border_top" format="boolean"/>
         <attr name="color_background" format="color"/>
+        <attr name="color_border" format="color"/>
         <attr name="color_info" format="color"/>
         <attr name="color_primary" format="color"/>
         <attr name="color_secondary" format="color"/>
         <attr name="color_tertiary" format="color"/>
         <attr name="min_ems" format="integer"/>
+        <attr name="mode" format="enum">
+            <enum name="text" value="0"/>
+            <enum name="button" value="1"/>
+            <enum name="select" value="2"/>
+        </attr>
         <attr name="padding" format="dimension"/>
         <attr name="padding_bottom" format="dimension"/>
         <attr name="padding_left" format="dimension"/>
         <attr name="padding_right" format="dimension"/>
         <attr name="padding_top" format="dimension"/>
+        <attr name="square" format="boolean"/>
         <attr name="stroke" format="dimension"/>
         <attr name="text_size_primary" format="dimension"/>
         <attr name="text_size_secondary" format="dimension"/>

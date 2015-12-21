@@ -1,10 +1,16 @@
 <resources>
     <string name="app_name">Bill Split</string>
     <string name="content_description_add">add</string>
-    <string name="error_missing_name">Name cannot be left empty</string>
+    <string name="error_name">Name cannot be left empty</string>
+    <string name="error_people">You must add a person first</string>
+    <string name="error_price">Price must be greater than $0.00</string>
+    <string name="error_quantity">At least one person must share this item</string>
     <string name="hint_name">NAME</string>
-    <string name="hint_tip">TIP (%)</string>
-    <string name="string_tip">tip: %d%%</string>
+    <string name="hint_price">PRICE PER ($)</string>
+    <string name="hint_tax">TAX (DEFAULT %d%%)</string>
+    <string name="hint_tip">TIP (DEFAULT %d%%)</string>
+    <string name="text_alocohol">ALCOHOL?</string>
     <string name="text_okay">OKAY</string>
+    <string name="warning_tax">Tax is greater than %d%%</string>
     <string name="warning_tip">Tip is greater than %d%%</string>
 </resources>

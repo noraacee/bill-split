@@ -1,19 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:pekkles="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+    <pekkles.billsplit.widget.CustomTextView
+        android:id="@+id/system_message"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        pekkles:color_primary="@color/primary_white"/>
     <android.support.v4.view.ViewPager
         android:id="@+id/view"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divider"
+        android:background="@color/black_54"/>
     <ImageView
         android:id="@+id/add"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:contentDescription="@string/content_description_add"
-        android:src="@drawable/ic_add_white_24dp"
-        style="@style/Button"/>
+        android:gravity="center"
+        android:padding="@dimen/padding_primary"
+        android:src="@drawable/ic_add_black_24dp"/>
 </LinearLayout>

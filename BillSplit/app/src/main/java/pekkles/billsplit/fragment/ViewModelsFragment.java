@@ -36,6 +36,10 @@ public abstract class ViewModelsFragment<E> extends Fragment {
         adapter.add(e);
     }
 
+    public List<E> getList() {
+        return adapter.getList();
+    }
+
     protected abstract int getLayoutId();
 
     protected abstract int getListViewId();
@@ -43,7 +47,7 @@ public abstract class ViewModelsFragment<E> extends Fragment {
     protected abstract ModelsAdapter initAdapter();
 
     protected abstract class ModelsAdapter extends BaseAdapter {
-        List<E> models;
+        private List<E> models;
 
         public ModelsAdapter() {
             models = new ArrayList<>();
@@ -67,6 +71,10 @@ public abstract class ViewModelsFragment<E> extends Fragment {
         public void add(E e) {
             models.add(e);
             notifyDataSetChanged();
+        }
+
+        public List<E> getList() {
+            return models;
         }
     }
 }

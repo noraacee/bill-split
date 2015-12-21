@@ -7,13 +7,14 @@ import android.graphics.Typeface;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.util.TypedValue;
+import android.view.Gravity;
 import android.widget.EditText;
 
 import pekkles.billsplit.R;
 
 public class CustomEditText extends EditText {
     private static final int COLOR_BACKGROUND = R.color.transparent;
-    private static final int COLOR_HINT = R.color.background;
+    private static final int COLOR_HINT = R.color.info;
     private static final int COLOR_TEXT = R.color.primary;
     private static final int MIN_EMS = 20;
     private static final int PADDING = R.dimen.padding_primary;
@@ -67,6 +68,7 @@ public class CustomEditText extends EditText {
         }
 
         setBackgroundColor(backgroundColor);
+        setGravity(Gravity.CENTER_VERTICAL);
         setHintTextColor(hintColor);
         setMinEms(minEms);
         setPadding(padding, padding, padding, padding);
