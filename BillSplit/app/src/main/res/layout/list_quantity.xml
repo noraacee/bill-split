@@ -17,5 +17,5 @@
         android:layout_height="match_parent"
         android:inputType="number"
         android:selectAllOnFocus="true"
-        pekkles:min_ems="0"/>
+        pekkles:min_ems="0" />
 </LinearLayout>

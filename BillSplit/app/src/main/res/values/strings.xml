@@ -9,8 +9,11 @@
     <string name="hint_price">PRICE PER ($)</string>
     <string name="hint_tax">TAX (DEFAULT %d%%)</string>
     <string name="hint_tip">TIP (DEFAULT %d%%)</string>
-    <string name="text_alocohol">ALCOHOL?</string>
     <string name="text_okay">OKAY</string>
+    <string name="text_price">PRICE $%.2f</string>
+    <string name="text_quantity">QUANTITY %d</string>
+    <string name="text_tax">TAX $%.2f</string>
+    <string name="text_total">TOTAL $%.2f</string>
     <string name="warning_tax">Tax is greater than %d%%</string>
     <string name="warning_tip">Tip is greater than %d%%</string>
 </resources>

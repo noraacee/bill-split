@@ -3,22 +3,19 @@ package pekkles.billsplit.dialog;
 import android.app.Dialog;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.KeyEvent;
+import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.inputmethod.EditorInfo;
-import android.widget.BaseAdapter;
 import android.widget.EditText;
-import android.widget.ListView;
-import android.widget.TextView;
+import android.widget.LinearLayout;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import pekkles.billsplit.R;
 import pekkles.billsplit.model.Item;
 import pekkles.billsplit.model.Person;
+import pekkles.billsplit.widget.CustomEditText;
+import pekkles.billsplit.widget.CustomTextView;
 
 public class NewItemDialog extends NewModelDialog<Item> {
     private static final int ERROR_NAME = R.string.error_name;
@@ -32,7 +29,8 @@ public class NewItemDialog extends NewModelDialog<Item> {
     private EditText nameView;
     private EditText priceView;
     private EditText taxView;
-    private QuantitiesAdapter adapter;
+
+    private Map<Person, Integer> quantities;
 
     @Override
     protected void add() {
@@ -46,9 +44,11 @@ public class NewItemDialog extends NewModelDialog<Item> {
         }
 
         Item item = new Item(name, price, tax);
-        item.addPeople(adapter.getQuantities());
+        item.addPeople(quantities);
+        item.init();
 
         onAdd(item);
+        activity.notifyDataSetChanged(true);
         dismiss();
     }
 
@@ -59,15 +59,63 @@ public class NewItemDialog extends NewModelDialog<Item> {
 
     @Override
     protected void initDialog(Dialog dialog) {
-        adapter = new QuantitiesAdapter(activity.getPeople());
-        ListView quantitiesView = (ListView) dialog.findViewById(R.id.quantities);
-        quantitiesView.setAdapter(adapter);
+        quantities = new HashMap<>();
+
+        LinearLayout view = (LinearLayout) dialog.findViewById(R.id.view);
+        for (final Person p : activity.getPeople()) {
+            View v = getActivity().getLayoutInflater().inflate(R.layout.list_quantity, view, false);
+            ((CustomTextView) v.findViewById(R.id.name)).setText(p.getName());
+
+            final CustomEditText quantityView = (CustomEditText) v.findViewById(R.id.quantity);
+            Integer quantity = quantities.get(p);
+            if (quantity == null)
+                quantityView.setText("0");
+            else
+                quantityView.setText(String.format("%d", quantity));
+
+            quantityView.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+                    if (s.length() == 0) {
+                        quantities.remove(p);
+                        quantityView.setText("0");
+                    } else {
+                        try {
+                            int quantity = Integer.parseInt(s.toString());
+                            if (quantity > 0) {
+                                quantities.put(p, quantity);
+                                Log.d(p.getName(), Integer.toString(quantity));
+                            } else {
+                                quantities.remove(p);
+                                quantityView.setSelection(0, s.length());
+                            }
+                        } catch (NumberFormatException e) {
+                            quantities.remove(p);
+                            quantityView.setText("0");
+                            quantityView.setSelection(0, s.length());
+                        }
+                    }
+                }
+            });
+
+            view.addView(v, view.getChildCount() - 1);
+        }
 
         nameView = (EditText) dialog.findViewById(R.id.name);
         priceView = (EditText) dialog.findViewById(R.id.price);
 
         taxView = (EditText) dialog.findViewById(R.id.tax);
-        taxView.setHint(getResources().getString(HINT_TAX, Item.DEFAULT_TAX));
+        taxView.setHint(getString(HINT_TAX, Item.DEFAULT_TAX));
         taxView.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -83,7 +131,7 @@ public class NewItemDialog extends NewModelDialog<Item> {
             public void afterTextChanged(Editable s) {
                 try {
                     if (Integer.parseInt(s.toString()) > Item.THRESHOLD_TAX)
-                        systemMessageManager.displayWarning(getResources().getString(WARNING_TAX, Item.THRESHOLD_TAX));
+                        systemMessageManager.displayWarning(getString(WARNING_TAX, Item.THRESHOLD_TAX));
                 } catch (NumberFormatException ignored) {
                 }
             }
@@ -93,7 +141,7 @@ public class NewItemDialog extends NewModelDialog<Item> {
     @Override
     protected boolean validate() {
         if (nameView.getText().toString().trim().length() == 0) {
-            systemMessageManager.displayError(getResources().getString(ERROR_NAME));
+            systemMessageManager.displayError(getString(ERROR_NAME));
             return false;
         }
 
@@ -101,110 +149,19 @@ public class NewItemDialog extends NewModelDialog<Item> {
             price = Double.parseDouble(priceView.getText().toString());
 
             if (price <= 0) {
-                systemMessageManager.displayError(getResources().getString(ERROR_PRICE));
+                systemMessageManager.displayError(getString(ERROR_PRICE));
                 return false;
             }
         } catch (NumberFormatException e) {
-            systemMessageManager.displayError(getResources().getString(ERROR_PRICE));
+            systemMessageManager.displayError(getString(ERROR_PRICE));
             return false;
         }
 
-        if (adapter.getQuantities().isEmpty()) {
-            systemMessageManager.displayError(getResources().getString(ERROR_QUANTITY));
+        if (quantities.isEmpty()) {
+            systemMessageManager.displayError(getString(ERROR_QUANTITY));
             return false;
         }
 
         return true;
-    }
-
-    private class QuantitiesAdapter extends BaseAdapter {
-        private List<Person> people;
-        private Map<Person, Integer> quantities;
-
-        public QuantitiesAdapter(List<Person> people) {
-            this.people = people;
-            quantities = new HashMap<>();
-        }
-
-        @Override
-        public int getCount() {
-            return people.size();
-        }
-
-        @Override
-        public Person getItem(int position) {
-            return people.get(position);
-        }
-
-        @Override
-        public long getItemId(int position) {
-            return position;
-        }
-
-        @Override
-        public View getView(final int position, View convertView, ViewGroup parent) {
-            if (convertView == null) {
-                convertView = getActivity().getLayoutInflater().inflate(R.layout.list_quantity, parent, false);
-
-                ViewHolder holder = new ViewHolder();
-                holder.nameView = (TextView) convertView.findViewById(R.id.name);
-                holder.quantityView = (EditText) convertView.findViewById(R.id.quantity);
-
-                convertView.setTag(holder);
-            }
-
-            final ViewHolder holder = (ViewHolder) convertView.getTag();
-            final Person person = getItem(position);
-
-            holder.nameView.setText(person.getName());
-
-            Integer quantity = quantities.get(person);
-            if (quantity == null)
-                holder.quantityView.setText("0");
-            else
-                holder.quantityView.setText(String.format("%d", quantity));
-
-            holder.quantityView.addTextChangedListener(new TextWatcher() {
-                @Override
-                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-                }
-
-                @Override
-                public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-                }
-
-                @Override
-                public void afterTextChanged(Editable s) {
-                    try {
-                        int quantity = Integer.parseInt(s.toString());
-                        if (quantity > 0) {
-                            quantities.put(person, quantity);
-                        } else {
-                            quantities.remove(person);
-                            holder.quantityView.setSelection(0, s.length());
-                        }
-                    } catch (NumberFormatException e) {
-                        quantities.remove(person);
-                    }
-
-                    if (s.length() == 0)
-                        holder.quantityView.setText("0");
-                }
-            });
-
-
-            return convertView;
-        }
-
-        public Map<Person, Integer> getQuantities() {
-            return quantities;
-        }
-
-        private class ViewHolder {
-            public TextView nameView;
-            public EditText quantityView;
-        }
     }
 }

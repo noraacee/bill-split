@@ -13,7 +13,6 @@ import java.util.List;
 
 import pekkles.billsplit.R;
 import pekkles.billsplit.dialog.NewItemDialog;
-import pekkles.billsplit.dialog.NewModelDialog;
 import pekkles.billsplit.dialog.NewPersonDialog;
 import pekkles.billsplit.fragment.ViewItemsFragment;
 import pekkles.billsplit.fragment.ViewPeopleFragment;
@@ -60,10 +59,9 @@ public class BillSplitActivity extends FragmentActivity {
                         break;
                     case POSITION_ITEMS:
                         if (getPeople().isEmpty())
-                            systemMessageManager.displayError(getResources().getString(ERROR_PEOPLE));
+                            systemMessageManager.displayError(getString(ERROR_PEOPLE));
                         else
                             showNewItemDialog();
-
                         break;
                     default:
                         showNewPersonDialog();
@@ -84,6 +82,13 @@ public class BillSplitActivity extends FragmentActivity {
 
     public List<Person> getPeople() {
         return viewPeopleFragment.getList();
+    }
+
+    public void notifyDataSetChanged(boolean people) {
+        if (people)
+            viewPeopleFragment.notifyDataSetChanged();
+        else
+            viewItemsFragment.notifyDataSetChanged();
     }
 
     private void showNewItemDialog() {

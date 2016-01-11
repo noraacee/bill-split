@@ -31,6 +31,7 @@ public class ViewPeopleFragment extends ViewModelsFragment<Person> {
 
                 ViewHolder holder = new ViewHolder();
                 holder.nameView = (CustomTextView) convertView.findViewById(R.id.name);
+                holder.totalView = (CustomTextView) convertView.findViewById(R.id.total);
 
                 convertView.setTag(holder);
             }
@@ -39,12 +40,14 @@ public class ViewPeopleFragment extends ViewModelsFragment<Person> {
             Person person = getItem(position);
 
             holder.nameView.setText(person.getName().toUpperCase());
+            holder.totalView.setText(getString(R.string.text_total, person.getTotal()));
 
             return convertView;
         }
 
         private class ViewHolder {
             public CustomTextView nameView;
+            public CustomTextView totalView;
         }
     }
 }

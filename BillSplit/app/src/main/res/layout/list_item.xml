@@ -11,7 +11,19 @@
         android:layout_height="wrap_content"
         pekkles:text_size_primary="@dimen/text_size_main"/>
     <pekkles.billsplit.widget.CustomTextView
-        android:id="@+id/total"
+        android:id="@+id/price"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <pekkles.billsplit.widget.CustomTextView
+        android:id="@+id/tax"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+    <pekkles.billsplit.widget.CustomTextView
+        android:id="@+id/quantity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <pekkles.billsplit.widget.CustomTextView
+        android:id="@+id/total"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 </LinearLayout>

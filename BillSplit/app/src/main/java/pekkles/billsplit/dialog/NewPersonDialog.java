@@ -47,7 +47,7 @@ public class NewPersonDialog extends NewModelDialog<Person> {
         nameView = (EditText) dialog.findViewById(R.id.name);
 
         tipView = (EditText) dialog.findViewById(R.id.tip);
-        tipView.setHint(getResources().getString(HINT_TAX, Person.DEFAULT_TIP));
+        tipView.setHint(getString(HINT_TAX, Person.DEFAULT_TIP));
         tipView.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -63,7 +63,7 @@ public class NewPersonDialog extends NewModelDialog<Person> {
             public void afterTextChanged(Editable s) {
                 try {
                     if (Integer.parseInt(s.toString()) > Person.THRESHOLD_TIP)
-                        systemMessageManager.displayWarning(getResources().getString(WARNING_TIP, Person.THRESHOLD_TIP));
+                        systemMessageManager.displayWarning(getString(WARNING_TIP, Person.THRESHOLD_TIP));
                 } catch (NumberFormatException ignored) {}
             }
         });
@@ -83,7 +83,7 @@ public class NewPersonDialog extends NewModelDialog<Person> {
     @Override
     protected boolean validate() {
         if (nameView.getText().toString().trim().length() == 0) {
-            systemMessageManager.displayError(getResources().getString(ERROR_NAME));
+            systemMessageManager.displayError(getString(ERROR_NAME));
             return false;
         }
 

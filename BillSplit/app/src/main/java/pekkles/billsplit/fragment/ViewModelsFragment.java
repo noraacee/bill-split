@@ -40,6 +40,10 @@ public abstract class ViewModelsFragment<E> extends Fragment {
         return adapter.getList();
     }
 
+    public void notifyDataSetChanged() {
+        adapter.notifyDataSetChanged();
+    }
+
     protected abstract int getLayoutId();
 
     protected abstract int getListViewId();
