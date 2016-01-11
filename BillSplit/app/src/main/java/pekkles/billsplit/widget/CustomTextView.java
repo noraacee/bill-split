@@ -19,6 +19,7 @@ import pekkles.billsplit.R;
 
 
 public class CustomTextView extends TextView {
+    private static final boolean ALL_CAPS = true;
     private static final boolean BORDER_ALL = false;
     private static final boolean BORDER_BOTTOM = false;
     private static final boolean BORDER_LEFT = false;
@@ -168,6 +169,7 @@ public class CustomTextView extends TextView {
 
         border = new boolean[COUNT_BORDER];
 
+        boolean allCaps;
         boolean borderAll;
         int borderColor;
         int paddingBottom;
@@ -177,6 +179,8 @@ public class CustomTextView extends TextView {
         float textSize;
         if (attrs != null) {
             TypedArray a = getContext().obtainStyledAttributes(attrs, R.styleable.Pekkles);
+
+            allCaps = a.getBoolean(R.styleable.Pekkles_all_caps, ALL_CAPS);
 
             borderAll = a.getBoolean(R.styleable.Pekkles_border, BORDER_ALL);
             border[INDEX_BOTTOM] = a.getBoolean(R.styleable.Pekkles_border_bottom, BORDER_BOTTOM) || borderAll;
@@ -202,6 +206,8 @@ public class CustomTextView extends TextView {
 
             a.recycle();
         } else {
+            allCaps = ALL_CAPS;
+
             border[INDEX_BOTTOM] = BORDER_BOTTOM;
             border[INDEX_LEFT] = BORDER_LEFT;
             border[INDEX_RIGHT] = BORDER_RIGHT;
@@ -232,6 +238,7 @@ public class CustomTextView extends TextView {
         touchSlop = ViewConfiguration.get(getContext()).getScaledTouchSlop();
         Typeface tf = Typeface.createFromAsset(getContext().getAssets(), TYPEFACE);
 
+        setAllCaps(allCaps);
         setBackgroundColor(backgroundColor);
         setGravity(Gravity.CENTER);
         setPadding(paddingLeft, paddingTop, paddingRight, paddingBottom);

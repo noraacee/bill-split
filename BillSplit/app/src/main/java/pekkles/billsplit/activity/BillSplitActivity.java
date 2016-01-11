@@ -47,7 +47,7 @@ public class BillSplitActivity extends FragmentActivity {
         viewPeopleFragment = new ViewPeopleFragment();
 
         BillSplitPagerAdapter adapter = new BillSplitPagerAdapter(getSupportFragmentManager());
-        viewPager = (ViewPager) findViewById(R.id.view);
+        viewPager = (ViewPager) findViewById(R.id.view_pager);
         viewPager.setAdapter(adapter);
 
         findViewById(R.id.add).setOnClickListener(new View.OnClickListener() {

@@ -2,6 +2,7 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:pekkles="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
@@ -9,9 +10,14 @@
         android:id="@+id/name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        pekkles:text_size_primary="@dimen/text_size_main"/>
+        pekkles:text_size_primary="@dimen/text_size_main" />
     <pekkles.billsplit.widget.CustomTextView
         android:id="@+id/total"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+    <View
+        android:id="@+id/divider"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/black_12" />
 </LinearLayout>

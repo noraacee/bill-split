@@ -1,5 +1,6 @@
 <resources>
     <declare-styleable name="Pekkles">
+        <attr name="all_caps" format="boolean"/>
         <attr name="border" format="boolean"/>
         <attr name="border_bottom" format="boolean"/>
         <attr name="border_single_color" format="boolean"/>

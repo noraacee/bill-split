@@ -4,19 +4,14 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import pekkles.billsplit.R;
+import pekkles.billsplit.dialog.ViewPersonDialog;
 import pekkles.billsplit.model.Person;
 import pekkles.billsplit.widget.CustomTextView;
 
 public class ViewPeopleFragment extends ViewModelsFragment<Person> {
-    @Override
-    protected int getLayoutId() {
-        return R.layout.fragment_view_people;
-    }
+    private static final int TEXT_TOTAL = R.string.text_total;
 
-    @Override
-    protected int getListViewId() {
-        return R.id.people;
-    }
+    private static final String TAG_PERSON = "person";
 
     @Override
     protected ModelsAdapter initAdapter() {
@@ -25,13 +20,16 @@ public class ViewPeopleFragment extends ViewModelsFragment<Person> {
 
     private class PeopleAdapter extends ModelsAdapter {
         @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
+        public View getView(final int position, View convertView, ViewGroup parent) {
             if (convertView == null) {
-                convertView = getActivity().getLayoutInflater().inflate(R.layout.list_person, parent, false);
+                convertView = getActivity().getLayoutInflater().inflate(R.layout.list_model, parent, false);
 
-                ViewHolder holder = new ViewHolder();
+                final ViewHolder holder = new ViewHolder();
+
                 holder.nameView = (CustomTextView) convertView.findViewById(R.id.name);
                 holder.totalView = (CustomTextView) convertView.findViewById(R.id.total);
+                holder.divider = convertView.findViewById(R.id.divider);
+                holder.view = convertView.findViewById(R.id.view);
 
                 convertView.setTag(holder);
             }
@@ -39,15 +37,29 @@ public class ViewPeopleFragment extends ViewModelsFragment<Person> {
             ViewHolder holder = (ViewHolder) convertView.getTag();
             Person person = getItem(position);
 
-            holder.nameView.setText(person.getName().toUpperCase());
-            holder.totalView.setText(getString(R.string.text_total, person.getTotal()));
+            holder.nameView.setText(person.getName());
+            holder.totalView.setText(getString(TEXT_TOTAL, person.getTotal()));
+
+            holder.view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    showViewPersonDialog(position);
+                }
+            });
+
+            setDivider(holder, position);
 
             return convertView;
         }
 
-        private class ViewHolder {
+        private class ViewHolder extends AbstractViewHolder {
             public CustomTextView nameView;
             public CustomTextView totalView;
         }
+    }
+
+    private void showViewPersonDialog(int position) {
+        ViewPersonDialog dialog = ViewPersonDialog.newInstance(position);
+        dialog.show(getFragmentManager(), TAG_PERSON);
     }
 }

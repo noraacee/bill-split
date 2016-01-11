@@ -1,7 +1,7 @@
 package pekkles.billsplit.model;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Person {
     public static final int DEFAULT_TIP = 10;
@@ -13,22 +13,23 @@ public class Person {
 
     private String name;
 
-    private List<Item> items;
+    private Map<String, Double> items;
 
     public Person(String name, int tip) {
         this.name = name;
         this.tip = tip;
 
         total = 0;
-        items = new ArrayList<>();
+        items = new HashMap<>();
     }
 
     public void addItem(Item i) {
-        items.add(i);
-        total += i.calculateCost(this, tip);
+        double cost = i.calculateCost(this, tip);
+        items.put(i.getName(), cost);
+        total += cost;
     }
 
-    public List<Item> getItems() {
+    public Map<String, Double> getItems() {
         return items;
     }
 

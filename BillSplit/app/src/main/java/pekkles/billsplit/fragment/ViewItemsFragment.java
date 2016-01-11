@@ -8,15 +8,7 @@ import pekkles.billsplit.model.Item;
 import pekkles.billsplit.widget.CustomTextView;
 
 public class ViewItemsFragment extends ViewModelsFragment<Item> {
-    @Override
-    protected int getLayoutId() {
-        return R.layout.fragment_view_items;
-    }
-
-    @Override
-    protected int getListViewId() {
-        return R.id.items;
-    }
+    private static final int TEXT_TOTAL = R.string.text_total;
 
     @Override
     protected ModelsAdapter initAdapter() {
@@ -27,14 +19,12 @@ public class ViewItemsFragment extends ViewModelsFragment<Item> {
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             if (convertView == null) {
-                convertView = getActivity().getLayoutInflater().inflate(R.layout.list_item, parent, false);
+                convertView = getActivity().getLayoutInflater().inflate(R.layout.list_model, parent, false);
 
                 ViewHolder holder = new ViewHolder();
                 holder.nameView = (CustomTextView) convertView.findViewById(R.id.name);
-                holder.priceView = (CustomTextView) convertView.findViewById(R.id.price);
-                holder.taxView = (CustomTextView) convertView.findViewById(R.id.tax);
-                holder.quantityView = (CustomTextView) convertView.findViewById(R.id.quantity);
                 holder.totalView = (CustomTextView) convertView.findViewById(R.id.total);
+                holder.divider = convertView.findViewById(R.id.divider);
 
                 convertView.setTag(holder);
             }
@@ -42,20 +32,16 @@ public class ViewItemsFragment extends ViewModelsFragment<Item> {
             ViewHolder holder = (ViewHolder) convertView.getTag();
             Item item = getItem(position);
 
-            holder.nameView.setText(item.getName().toUpperCase());
-            holder.priceView.setText(getString(R.string.text_price, item.getPrice()));
-            holder.taxView.setText(getString(R.string.text_tax, item.getTax()));
-            holder.quantityView.setText(getString(R.string.text_quantity, item.getQuantity()));
-            holder.totalView.setText(getString(R.string.text_total, item.getTotal()));
+            holder.nameView.setText(item.getName());
+            holder.totalView.setText(getString(TEXT_TOTAL, item.getTotal()));
+
+            setDivider(holder, position);
 
             return convertView;
         }
 
-        private class ViewHolder {
+        private class ViewHolder extends AbstractViewHolder {
             public CustomTextView nameView;
-            public CustomTextView priceView;
-            public CustomTextView taxView;
-            public CustomTextView quantityView;
             public CustomTextView totalView;
         }
     }

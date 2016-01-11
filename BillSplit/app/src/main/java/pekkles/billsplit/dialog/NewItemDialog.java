@@ -61,9 +61,9 @@ public class NewItemDialog extends NewModelDialog<Item> {
     protected void initDialog(Dialog dialog) {
         quantities = new HashMap<>();
 
-        LinearLayout view = (LinearLayout) dialog.findViewById(R.id.view);
+        LinearLayout peopleView = (LinearLayout) dialog.findViewById(R.id.people);
         for (final Person p : activity.getPeople()) {
-            View v = getActivity().getLayoutInflater().inflate(R.layout.list_quantity, view, false);
+            View v = getActivity().getLayoutInflater().inflate(R.layout.list_quantity, peopleView, false);
             ((CustomTextView) v.findViewById(R.id.name)).setText(p.getName());
 
             final CustomEditText quantityView = (CustomEditText) v.findViewById(R.id.quantity);
@@ -108,7 +108,7 @@ public class NewItemDialog extends NewModelDialog<Item> {
                 }
             });
 
-            view.addView(v, view.getChildCount() - 1);
+            peopleView.addView(v);
         }
 
         nameView = (EditText) dialog.findViewById(R.id.name);

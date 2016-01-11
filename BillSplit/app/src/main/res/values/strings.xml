@@ -13,6 +13,7 @@
     <string name="text_price">PRICE $%.2f</string>
     <string name="text_quantity">QUANTITY %d</string>
     <string name="text_tax">TAX $%.2f</string>
+    <string name="text_tip">TIP %d%%</string>
     <string name="text_total">TOTAL $%.2f</string>
     <string name="warning_tax">Tax is greater than %d%%</string>
     <string name="warning_tip">Tip is greater than %d%%</string>

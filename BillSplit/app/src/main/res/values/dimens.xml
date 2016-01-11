@@ -1,5 +1,5 @@
 <resources>
-    <dimen name="divider">1dp</dimen>
+    <dimen name="divider_height">1dp</dimen>
     <dimen name="padding_primary">24dp</dimen>
     <dimen name="padding_secondary">16dp</dimen>
     <dimen name="padding_tertiary">8dp</dimen>

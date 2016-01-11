@@ -22,7 +22,7 @@ public abstract class NewModelDialog<E> extends DialogFragment {
     public void onAttach(Activity activity) {
         super.onAttach(activity);
 
-       this.activity = (BillSplitActivity) activity;
+        this.activity = (BillSplitActivity) activity;
     }
 
     @NonNull
